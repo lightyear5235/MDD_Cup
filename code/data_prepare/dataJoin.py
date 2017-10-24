@@ -31,10 +31,10 @@ class Order:
         self.box_total_value = box_total_value
         self.food_num = food_num
         self.delivery_distance = delivery_distance
+        self.date = getTimeDate(order_time)
         self.orderHour = getTimeHour(order_time)
         self.orderMinute = getTimeMinute(order_time)
-        self.order_time = order_time
-        self.arriveshop_time = arriveshop_time
+        self.arriveshopHour = arriveshop_time
         self.fetch_time = fetch_time
         self.finish_time = finish_time
         self.waiting_order_num = waiting_order_num
@@ -48,7 +48,7 @@ def getAreaWeatherInfo(fileName):
     for line in fr.readline():
         info = line[:-1].split(",")
         wi = Weather(info[0], line[1], line[3], line[4], line[5], line[6])
-        key = info[0] + "\t" + info[1] + "\t" + info[3]
+        key = wi.date + "\t" + wi.time + "\t" + wi.areaid
         resultMap[key] = wi
     fr.close()
     return resultMap
@@ -60,7 +60,7 @@ def getAreaInfo(fileName):
     for line in fr.readline():
         info = line[:-1].split(",")
         ai = Area(info[0], info[1], info[3], info[4], info[5], info[6], info[7])
-        key = info[0] + "\t" + info[1] + "\t" + info[3]
+        key = ai.date + "\t" + ai.time + "\t" + ai.areaid
         resultMap[key] = ai
     fr.close()
     return resultMap
